@@ -33,10 +33,12 @@ public class UserController {
         List<User> users = userService.getAllUser();
         return new ResponseEntity<>(users,HttpStatus.OK);
 
-    @GetMapping("getUserById/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long id){
-        User getUserById = userService.getUserById(id);
-        return new ResponseEntity<>(getUserById,HttpStatus.OK);
 
+
+    }
+    @GetMapping("getUserById/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+        User getUserById = userService.getUserById(id);
+        return new ResponseEntity<>(getUserById, HttpStatus.OK);
     }
 }
