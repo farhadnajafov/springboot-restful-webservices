@@ -1,6 +1,7 @@
 package com.example.springboot.service.impl;
 
 import com.example.springboot.entity.User;
+import com.example.springboot.repository.UserRepository;
 import com.example.springboot.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private  UserRepository userRepository;
+    private final UserRepository userRepository;
 
 
     @Override
