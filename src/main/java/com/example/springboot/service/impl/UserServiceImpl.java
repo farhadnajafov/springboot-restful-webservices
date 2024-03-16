@@ -29,11 +29,30 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUser() {
         return userRepository.findAll();
 
+    }
     public User getUserById(Long id) {
         Optional<User> optionalUser =userRepository.findById(id);
 
         return optionalUser.get();
 
+
+    }
+
+    @Override
+    public User updateUser(User user) {
+
+        User existingUser = userRepository.findById(user.getId()).get();
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setEmail(user.getEmail());
+        User updateUser = userRepository.save(existingUser);
+
+        return updateUser;
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
 
     }
 }
