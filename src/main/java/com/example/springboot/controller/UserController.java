@@ -1,5 +1,6 @@
 package com.example.springboot.controller;
 
+import com.example.springboot.dto.UserDto;
 import com.example.springboot.entity.User;
 import com.example.springboot.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -21,10 +22,10 @@ public class UserController {
     }
 
     @PostMapping("/createUser")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User savedUser = userService.createUser(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+        UserDto savedUserDto = userService.createUser(userDto);
 
-        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedUserDto, HttpStatus.CREATED);
     }
 
 
