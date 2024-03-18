@@ -6,6 +6,7 @@ import com.example.springboot.mapper.UserMapper;
 import com.example.springboot.repository.UserRepository;
 import com.example.springboot.service.UserService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 
@@ -21,14 +22,21 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private ModelMapper modelMapper;
+
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        User user = UserMapper.mapToUser(userDto);
+
+
+//        User user = UserMapper.mapToUser(userDto);
+        User user = modelMapper.map(userDto,User.class);
 
         User savedUser = userRepository.save(user);
 
-        UserDto savedUserDto = UserMapper.mapToUserDto(savedUser);
+//        UserDto savedUserDto = UserMapper.mapToUserDto(savedUser);
+        UserDto savedUserDto = modelMapper.map(savedUser,UserDto.class);
+
         return savedUserDto;
     }
 
@@ -36,18 +44,23 @@ public class UserServiceImpl implements UserService {
 
     public List<UserDto> getAllUser() {
         List<User> users = userRepository.findAll();
+//        return users
+//                .stream()
+//                .map(UserMapper:: mapToUserDto)
+//                .collect(Collectors.toList());
+
         return users
                 .stream()
-                .map(UserMapper:: mapToUserDto)
+                .map((user) -> modelMapper.map(user,UserDto.class))
                 .collect(Collectors.toList());
-
     }
     public UserDto getUserById(Long id) {
         Optional<User> optionalUser =userRepository.findById(id);
 
         User user = optionalUser.get();
 
-        return UserMapper.mapToUserDto(user);
+//        return UserMapper.mapToUserDto(user);
+        return modelMapper.map(user,UserDto.class);
 
 
     }
@@ -61,7 +74,8 @@ public class UserServiceImpl implements UserService {
         existingUser.setEmail(user.getEmail());
         User updateUser = userRepository.save(existingUser);
 
-        return UserMapper.mapToUserDto(updateUser);
+//        return UserMapper.mapToUserDto(updateUser);
+        return modelMapper.map(updateUser,UserDto.class);
     }
 
     @Override
